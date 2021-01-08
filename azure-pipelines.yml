@@ -1,0 +1,30 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    goals: 'package'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'bash <(curl -s -L https://raw.github.com/matthewb66/detect_rescan/main/detect_rescan.sh) --curlopts="-k" --blackduck.api.token=MjYwNjg0YmQtOWUyMS00MzY4LWI4YmQtYjRiMWZlNWY2M2Y1OmM2ZmQxMWRmLTA4MGMtNGE0Zi04NzU0LWY0YzY3M2UzMzg1OQ== --blackduck.trust.cert=true --blackduck.url=https://20.49.156.137 --detect.project.name=spring-framework-petclinic --detect.project.version.name=1.0  --detect.policy.check.fail.on.severities=ALL --quiet --report --testxml'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/vulns.xml'
+  inputs:
+    testResultsFiles: '**/vulns.xml'
