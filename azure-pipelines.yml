@@ -29,7 +29,7 @@ steps:
     targetType: 'inline'
     script: |
       curl -s -L https://detect.synopsys.com/detect.sh > detect.sh
-      ./detect.sh --blackduck.api.token= --blackduck.url=https://
+      ./detect.sh --blackduck.username=sysasdmin --blackduck.password=test --blackduck.url=https://poc39.bllackducksoftware.com 
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.xml'
