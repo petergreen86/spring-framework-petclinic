@@ -24,10 +24,12 @@ steps:
 #     targetType: 'inline'
 #     script: 'bash <(curl -s -L https://raw.github.com/matthewb66/detect_rescan/main/detect_rescan.sh) --curlopts="-k" --blackduck.api.token=NmUwZmQwMzgtOTlmZi00NzBiLTgyNDctZTViMTRkOGRlMDVhOjMwNzg5ZTkxLWRlMWYtNGFjZC05ZTIwLWM3N2M4YTAwOTI4Yg== --blackduck.trust.cert=true --blackduck.url=https://51.11.188.38 --detect.project.name=spring-framework-petclinic --detect.project.version.name=1.0  --detect.policy.check.fail.on.severities=ALL --quiet --report --testxml'
 
-- task: PowerShell@2
+- task: Bash@3
   inputs:
-    filePath: 'https://detect.synopsys.com/detect.ps1?'
-    arguments: '--blackduck.api.token=xxx'
+    targetType: 'inline'
+    script: |
+      curl -s -L https://detect.synopsys.com/detect.sh > detect.sh
+      ./detect.sh --blackduck.api.token= --blackduck.url=https://
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.xml'
