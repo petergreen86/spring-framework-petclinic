@@ -26,7 +26,7 @@ steps:
 
 - task: PowerShell@2
   inputs:
-    filePath: '[Net.ServicePointManager]::SecurityProtocol = ''tls12''; irm https://detect.synopsys.com/detect.ps1?$(Get-Random) | iex; detect'
+    filePath: 'https://detect.synopsys.com/detect.ps1?'
     arguments: '--blackduck.api.token=xxx'
 
 - task: PublishTestResults@2
