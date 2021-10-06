@@ -10,19 +10,19 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    goals: 'package'
+# - task: Maven@3
+#   inputs:
+#     mavenPomFile: 'pom.xml'
+#     mavenOptions: '-Xmx3072m'
+#     javaHomeOption: 'JDKVersion'
+#     jdkVersionOption: '1.8'
+#     jdkArchitectureOption: 'x64'
+#     goals: 'package'
 
 - task: Docker@2
   inputs:
     containerRegistry: 'detect docker hub'
-    command: 'run blackducksoftware/detect:7 -v $(Build.SourcesDirectory):/source -v $(Agent.HomeDirectory):/output'
+    command: 'run -it -v $(Build.SourcesDirectory):/source -v $(Agent.HomeDirectory):/output blackducksoftware/detect:7'
     #arguments: '-v $(Build.SourcesDirectory):/source -v $(Agent.HomeDirectory)\blackduck:/output'
     #container: 'blackducksoftware/detect:7'
 
