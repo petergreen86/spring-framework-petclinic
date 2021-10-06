@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 # - task: Maven@3
@@ -22,9 +22,19 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'detect docker hub'
-    command: 'start'
-    arguments: '-v $(Build.SourcesDirectory):/source -v $(Agent.HomeDirectory):/output'
-    container: 'blackducksoftware/detect:7'
+    command: 'login'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      'echo "Synopsys Detect Scan"'
+      docker run \
+      --rm \
+      -v $(Build.SourcesDirectory):/source \
+      -v $(Agent.TempDirectory):/output \
+      blackducksoftware/detect:7
+
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.xml'
