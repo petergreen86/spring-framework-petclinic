@@ -10,14 +10,14 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-# - task: Maven@3
-#   inputs:
-#     mavenPomFile: 'pom.xml'
-#     mavenOptions: '-Xmx3072m'
-#     javaHomeOption: 'JDKVersion'
-#     jdkVersionOption: '1.8'
-#     jdkArchitectureOption: 'x64'
-#     goals: 'package'
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    goals: 'package'
 
 - task: Docker@2
   inputs:
@@ -33,6 +33,9 @@ steps:
       --rm \
       -v $(Build.SourcesDirectory):/source \
       -v $(Agent.TempDirectory):/output \
+      --blackduck.trust.cert=true \
+      --blackduck.url=https://20.90.219.73 \
+      --blackduck.api.token="M2I2ZmYzOTUtZWI1Yy00YmU4LTgyMDktODM4Njk1Y2NiZGY1OmZkNTI2MzkyLTJkNGEtNDFlNC04OTUwLWFjMDY0MDIzZGExMg=="
       blackducksoftware/detect:7
 
 
