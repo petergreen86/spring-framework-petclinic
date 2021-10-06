@@ -22,7 +22,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'detect docker hub'
-    command: 'start'
+    command: 'run'
     arguments: '-v $(Build.SourcesDirectory):/source -v $(Agent.TempDirectory):/output'
     container: 'blackducksoftware/detect:7'
 
