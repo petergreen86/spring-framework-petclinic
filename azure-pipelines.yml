@@ -33,10 +33,10 @@ steps:
       --rm \
       -v $(Build.SourcesDirectory):/source \
       -v $(Agent.TempDirectory):/output \
+      blackducksoftware/detect:7 \
       --blackduck.trust.cert=true \
       --blackduck.url=https://20.90.219.73 \
       --blackduck.api.token="M2I2ZmYzOTUtZWI1Yy00YmU4LTgyMDktODM4Njk1Y2NiZGY1OmZkNTI2MzkyLTJkNGEtNDFlNC04OTUwLWFjMDY0MDIzZGExMg=="
-      blackducksoftware/detect:7
 
 
 - task: PublishTestResults@2
