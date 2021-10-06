@@ -23,7 +23,7 @@ steps:
   inputs:
     containerRegistry: 'detect docker hub'
     command: 'run blackducksoftware/detect:7'
-    arguments: '-v $(Build.SourcesDirectory):/source -v $(Agent.HomeDirectory)/blackduck:/output'
+    arguments: '-v $(Build.SourcesDirectory):/source -v $(Agent.HomeDirectory)\blackduck:/output'
     #container: 'blackducksoftware/detect:7'
 
 - task: PublishTestResults@2
