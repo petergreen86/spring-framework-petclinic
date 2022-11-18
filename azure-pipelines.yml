@@ -19,21 +19,25 @@ steps:
     jdkArchitectureOption: 'x64'
     goals: 'package'
 
-- task: Bash@3
-  displayName: 'Run Synopsys Detect'
+# - task: Bash@3
+#   displayName: 'Run Synopsys Detect'
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       docker run \
+#       --rm \
+#       -v $(Build.SourcesDirectory):/source \
+#       -v $(Agent.TempDirectory):/output \
+#       blackducksoftware/detect:7 \
+#       --blackduck.trust.cert=true \
+#       --blackduck.url=https://20.90.219.73 \
+#       --blackduck.api.token=$(BLACKDUCK_API_TOKEN)
+
+- task: SynopsysDetectTask@7
   inputs:
-    targetType: 'inline'
-    script: |
-      docker run \
-      --rm \
-      -v $(Build.SourcesDirectory):/source \
-      -v $(Agent.TempDirectory):/output \
-      blackducksoftware/detect:7 \
-      --blackduck.trust.cert=true \
-      --blackduck.url=https://20.90.219.73 \
-      --blackduck.api.token=$(BLACKDUCK_API_TOKEN)
-
-
+    BlackDuckService: 'BD SaaS Test'
+    DetectArguments: '--detect.project.name=pgreen-springframework --detect.project.version.name=master'
+    DetectVersion: 'latest'
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.xml'
