@@ -35,7 +35,7 @@ steps:
 
 - task: SynopsysDetectTask@7
   inputs:
-    BlackDuckService: 'BD SaaS Test'
+    BlackDuckService: 'gcp'
     DetectArguments: '--detect.project.name=pgreen-springframework --detect.project.version.name=master'
     DetectVersion: 'latest'
 
