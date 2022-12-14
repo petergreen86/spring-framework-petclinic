@@ -36,7 +36,7 @@ steps:
 - task: SynopsysDetectTask@7
   inputs:
     BlackDuckService: 'gcp'
-    DetectArguments: '--detect.project.name=pgreen-springframework --detect.project.version.name=master'
+    DetectArguments: '--detect.project.name=pgreen-springframework --detect.project.version.name=master --blackduck.trust.cert=true'
     DetectVersion: 'latest'
 
 - task: PublishTestResults@2
